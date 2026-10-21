@@ -1,0 +1,1834 @@
+<!doctype html>
+<html lang="es"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alvaro Ponce | Dark Cyan Portfolio</title>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --bg: #2f2f30;
+      --panel: #393939;
+      --panel-soft: #454545;
+      --ink: #f7f7f4;
+      --muted: #b9b9b5;
+      --line: rgba(255, 255, 255, .16);
+      --cyan: #11bfd2;
+      --cyan-dark: #0899aa;
+      --black: #101113;
+      --white: #ffffff;
+      --shadow: 0 28px 70px rgba(0, 0, 0, .35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.45;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px) 50px 0 / 1px 100% no-repeat,
+        var(--bg);
+    }
+
+    .rail {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 50px;
+      z-index: 5;
+      border-right: 1px solid var(--line);
+      background: #252526;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rail span {
+      transform: rotate(-90deg);
+      white-space: nowrap;
+      color: rgba(255, 255, 255, .72);
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .dots {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      gap: 8px;
+      z-index: 4;
+    }
+
+    .dots a {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .7);
+    }
+
+    .dots a:first-child,
+    .dots a:hover {
+      background: var(--cyan);
+    }
+
+    .hero {
+      min-height: 100vh;
+      margin-left: 50px;
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(420px, 1fr);
+      align-items: stretch;
+      background: var(--black);
+    }
+
+    .hero-copy {
+      padding: clamp(34px, 6vw, 78px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-copy::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 16%;
+      width: 7px;
+      height: 190px;
+      background: var(--cyan);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 660px;
+      font-size: clamp(44px, 6.8vw, 94px);
+      line-height: .92;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+    .lead {
+      max-width: 620px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.8vw, 20px);
+      font-weight: 650;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      min-height: 46px;
+      padding: 0 21px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cyan);
+      color: #071013;
+      border: 2px solid var(--cyan);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255, 255, 255, .72);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 640px;
+      overflow: hidden;
+      background:
+        linear-gradient(115deg, rgba(17, 191, 210, .12), transparent 42%),
+        linear-gradient(145deg, #17181b 0%, #2b3135 45%, #101113 100%);
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 72% 17%, rgba(17, 191, 210, .7) 0 4px, transparent 5px),
+        radial-gradient(circle at 82% 28%, rgba(255, 255, 255, .35) 0 5px, transparent 6px),
+        linear-gradient(90deg, transparent 0 48%, rgba(255, 255, 255, .08) 48% 49%, transparent 49%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.045) 0 1px, transparent 1px 42px);
+      opacity: .92;
+    }
+
+    .abstract-visual {
+      position: absolute;
+      right: 7%;
+      top: 14%;
+      width: min(74%, 560px);
+      height: 62%;
+      background:
+        linear-gradient(90deg, rgba(17, 191, 210, .18) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px),
+        linear-gradient(135deg, rgba(17, 191, 210, .14), rgba(255, 255, 255, .02));
+      background-size: 54px 54px, 54px 54px, auto;
+      border: 1px solid rgba(255, 255, 255, .12);
+      box-shadow: inset 0 0 0 1px rgba(17, 191, 210, .08), var(--shadow);
+    }
+
+    .abstract-visual::before {
+      content: "";
+      position: absolute;
+      right: 8%;
+      top: 12%;
+      width: 44%;
+      height: 48%;
+      background:
+        linear-gradient(135deg, rgba(17, 191, 210, .96), rgba(17, 191, 210, .18)),
+        linear-gradient(145deg, #293138, #101113);
+      clip-path: polygon(16% 0, 100% 0, 84% 100%, 0 100%);
+    }
+
+    .abstract-visual::after {
+      content: "";
+      position: absolute;
+      left: 10%;
+      bottom: 12%;
+      width: 64%;
+      height: 28%;
+      border: 1px solid rgba(255, 255, 255, .18);
+      background:
+        linear-gradient(90deg, rgba(17, 191, 210, .22), transparent),
+        rgba(8, 10, 12, .54);
+    }
+
+    .abstract-node {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 0 9px rgba(17, 191, 210, .12);
+    }
+
+    .abstract-node:nth-child(1) {
+      left: 16%;
+      top: 18%;
+    }
+
+    .abstract-node:nth-child(2) {
+      right: 12%;
+      bottom: 20%;
+      background: rgba(255, 255, 255, .76);
+      box-shadow: 0 0 0 9px rgba(255, 255, 255, .1);
+    }
+
+    .abstract-line {
+      position: absolute;
+      left: 12%;
+      right: 10%;
+      top: 46%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--cyan), rgba(255, 255, 255, .08), transparent);
+    }
+
+    .screen-card {
+      position: absolute;
+      left: 7%;
+      bottom: 10%;
+      width: min(72%, 390px);
+      padding: 20px;
+      background: rgba(8, 10, 12, .82);
+      border: 1px solid rgba(255, 255, 255, .12);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .screen-card h2 {
+      margin: 0 0 14px;
+      font-size: 17px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .mini {
+      min-height: 82px;
+      padding: 12px;
+      background: rgba(255, 255, 255, .08);
+      border-bottom: 4px solid var(--cyan);
+    }
+
+    .mini strong {
+      display: block;
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .mini span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    section {
+      margin-left: 50px;
+      padding: 82px clamp(22px, 5vw, 72px);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(300px, .78fr) minmax(0, 1fr);
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .image-panel {
+      position: relative;
+      min-height: 420px;
+      background:
+        linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+        linear-gradient(120deg, #1b3034, #252a2d 65%, #202426);
+      background-size: 100% 42px, auto;
+      overflow: hidden;
+    }
+
+    .image-panel::before {
+      content: "";
+      position: absolute;
+      left: 44%;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: rgba(255, 255, 255, .06);
+    }
+
+    .image-panel::after {
+      content: "";
+      position: absolute;
+      right: 28%;
+      top: 11%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+    }
+
+    .image-panel .abstract-visual {
+      inset: 6% 6% 6% 9%;
+      width: auto;
+      height: auto;
+      box-shadow: none;
+    }
+
+    .image-panel.has-image {
+      background-size: cover;
+      background-position: center;
+    }
+
+    .image-panel.has-image::before {
+      inset: 0;
+      left: 0;
+      bottom: auto;
+      width: auto;
+      height: auto;
+      aspect-ratio: auto;
+      background: linear-gradient(135deg, rgba(0, 0, 0, .5), rgba(0, 0, 0, .04));
+    }
+
+    .image-panel.has-image::after {
+      display: none;
+    }
+
+    .bio-panel {
+      min-height: 420px;
+      padding: clamp(28px, 5vw, 58px);
+      background: var(--panel);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .section-kicker {
+      margin: 0 0 12px;
+      color: var(--cyan);
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(29px, 4vw, 54px);
+      line-height: .96;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+    .bio-panel p {
+      max-width: 720px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .info-bar {
+      margin-top: 28px;
+      padding: 18px;
+      background: var(--cyan);
+      color: #052025;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 22px;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .resume-grid {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 32px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .resume-head h2 {
+      margin: 0;
+      font-size: clamp(27px, 2.5vw, 33px);
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      overflow-wrap: break-word;
+    }
+
+    .resume-head h2[data-edit="certifications-heading"] {
+      font-size: 28px;
+      white-space: nowrap;
+      overflow-wrap: normal;
+    }
+
+    .resume-head h2[data-edit="learning-heading"] {
+      font-size: 20px;
+      white-space: nowrap;
+      overflow-wrap: normal;
+    }
+
+    .resume-head p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .timeline {
+      display: grid;
+      border-top: 1px solid var(--line);
+    }
+
+    .resume-stack {
+      display: grid;
+      gap: 28px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .resume-stack > .resume-grid {
+      width: 100%;
+      padding: 36px;
+      border: 1px solid rgba(255, 255, 255, .09);
+      border-left: 5px solid var(--section-accent, var(--cyan));
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .14), inset 0 1px 0 rgba(255, 255, 255, .025);
+    }
+
+    .resume-stack > .resume-grid:nth-child(1) {
+      --section-accent: #11bfd2;
+      background: linear-gradient(135deg, rgba(17, 191, 210, .055), transparent 42%), #282b2e;
+    }
+
+    .resume-stack > .resume-grid:nth-child(2) {
+      --section-accent: #7b858a;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .045), transparent 42%), #343638;
+    }
+
+    .resume-stack > .resume-grid:nth-child(3) {
+      --section-accent: #0899aa;
+      background: linear-gradient(135deg, rgba(8, 153, 170, .11), transparent 44%), #263136;
+    }
+
+    .resume-stack > .resume-grid:nth-child(4) {
+      --section-accent: #a4aaad;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .035), transparent 44%), #353336;
+    }
+
+    .resume-stack > .resume-grid:nth-child(5) {
+      --section-accent: #44d4df;
+      background: linear-gradient(135deg, rgba(68, 212, 223, .09), transparent 46%), #222d31;
+    }
+
+    .resume-stack > .resume-grid:nth-child(even) .section-kicker {
+      color: #d3d7d8;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) 120px;
+      gap: 22px;
+      align-items: center;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .institution-entry {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .institution-logo-wrap {
+      position: relative;
+      width: 46px;
+    }
+
+    .institution-logo {
+      display: block;
+      width: 46px;
+      height: 56px;
+      padding: 3px;
+      object-fit: contain;
+      background: #fff;
+      border: 1px solid rgba(255, 255, 255, .18);
+    }
+
+    .institution-entry--wide-logo {
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .institution-entry--wide-logo .institution-logo-wrap {
+      width: 64px;
+    }
+
+    .institution-entry--wide-logo .institution-logo {
+      width: 64px;
+      height: 48px;
+    }
+
+    .institution-logo--transparent {
+      padding: 0;
+      background: transparent;
+      border: 0;
+    }
+
+    .institution-entry--logo-only {
+      display: flex;
+      align-items: center;
+    }
+
+    .institution-entry--logo-only .institution-logo-wrap {
+      width: 150px;
+    }
+
+    .institution-logo--skill-builder {
+      width: 150px;
+      height: 46px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .institution-entry--ips-datax .institution-logo-wrap,
+    .institution-logo--ips-datax {
+      width: 176px;
+    }
+
+    .institution-logo--ips-datax {
+      height: 50px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .institution-entry--udemy .institution-logo-wrap,
+    .institution-logo--udemy {
+      width: 135px;
+    }
+
+    .institution-logo--udemy {
+      height: 48px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .institution-entry time {
+      min-width: 0;
+      font-size: 10px;
+      line-height: 1.45;
+      letter-spacing: .05em;
+      overflow-wrap: normal;
+      word-break: normal;
+    }
+
+.logo-control input {
+      display: none;
+    }
+
+.row time,
+    .row .company {
+      color: var(--white);
+      font-size: 12px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .row h3 {
+      margin: 0 0 5px;
+      font-size: 17px;
+      text-transform: uppercase;
+    }
+
+    .row p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .row a {
+      justify-self: end;
+      width: 104px;
+      min-height: 36px;
+      display: inline-grid;
+      place-items: center;
+      background: var(--cyan);
+      color: #061315;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+    .experience-toggle {
+      justify-self: end;
+      width: 104px;
+      min-height: 36px;
+      border: 0;
+      display: inline-grid;
+      place-items: center;
+      background: var(--cyan);
+      color: #061315;
+      font: 950 11px/1 inherit;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .experience-toggle:hover,
+    .experience-toggle:focus-visible {
+      background: #ffffff;
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+
+    .experience-details {
+      grid-column: 2 / -1;
+      padding: 18px 20px;
+      background: rgba(5, 12, 14, .32);
+      border-left: 3px solid var(--cyan);
+    }
+
+    .experience-details[hidden] {
+      display: none;
+    }
+
+    .experience-details .details-title {
+      margin: 0 0 10px;
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .experience-details ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 7px;
+    }
+
+    .experience-details li {
+      position: relative;
+      padding-left: 17px;
+      color: #d5d8d9;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .experience-details li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-weight: 950;
+    }
+
+    .services {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(17, 191, 210, .055), transparent 34%),
+        #202326;
+    }
+
+    .services-grid {
+      max-width: 1460px;
+      margin: 48px auto 0;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .service {
+      min-height: 390px;
+      padding: 30px 32px 34px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, .025), transparent 42%),
+        #24282b;
+      display: grid;
+      grid-template-rows: 24px 22px 112px minmax(0, 1fr);
+      align-items: flex-start;
+      border: 1px solid rgba(255, 255, 255, .1);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255, 255, 255, .025);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .service:hover {
+      transform: translateY(-5px);
+      border-color: rgba(17, 191, 210, .42);
+      box-shadow: 0 24px 52px rgba(0, 0, 0, .3), 0 0 0 1px rgba(17, 191, 210, .08);
+    }
+
+    .service b {
+      color: var(--cyan);
+      font-size: 18px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .service-rule {
+      width: 44px;
+      height: 2px;
+      align-self: end;
+      background: var(--cyan);
+    }
+
+    .service-icon {
+      width: 58px;
+      height: 58px;
+      margin: 32px 0 0;
+      display: grid;
+      place-items: center;
+      color: var(--cyan);
+    }
+
+    .service-icon svg {
+      width: 54px;
+      height: 54px;
+      stroke-width: 1.7;
+    }
+
+    .service-copy {
+      width: 100%;
+      align-self: start;
+      display: grid;
+      grid-template-rows: 68px auto;
+    }
+
+    .service h3 {
+      min-width: 0;
+      margin: 0;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 14px;
+      font-size: clamp(22px, 1.85vw, 30px);
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+    }
+
+    .service p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .projects {
+      background: #2d2d2e;
+    }
+
+    .project-list {
+      max-width: 1120px;
+      margin: 36px auto 0;
+      display: grid;
+      gap: 24px;
+    }
+
+    .project {
+      min-height: 320px;
+      display: grid;
+      grid-template-columns: minmax(280px, .68fr) minmax(0, 1fr);
+      background: #202124;
+      border: 1px solid rgba(255, 255, 255, .1);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .22);
+      overflow: hidden;
+    }
+
+    .project-media {
+      position: relative;
+      min-height: 320px;
+      background:
+        linear-gradient(135deg, rgba(17, 191, 210, .25), rgba(17, 191, 210, 0) 54%),
+        linear-gradient(145deg, #14191d, #465058);
+      overflow: hidden;
+    }
+
+    .project-media::before {
+      content: "";
+      position: absolute;
+      inset: 34px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 42px 42px;
+    }
+
+    .project-media::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 28px;
+      bottom: 24px;
+      color: rgba(255, 255, 255, .18);
+      font-size: clamp(52px, 8vw, 108px);
+      line-height: .78;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+    .project-body {
+      padding: clamp(26px, 4vw, 44px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+      border-left: 7px solid var(--cyan);
+    }
+
+    .project h3 {
+      margin: 0;
+      font-size: clamp(27px, 4vw, 46px);
+      line-height: .96;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+    .project h3.project-title--long {
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.04;
+    }
+
+    .project p {
+      max-width: 650px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .project-meta span {
+      padding: 7px 9px;
+      background: rgba(255, 255, 255, .08);
+      color: var(--ink);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .project-architecture {
+      color: var(--cyan);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      font-weight: 800;
+    }
+
+    .project-repository {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      color: var(--cyan);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .project-repository svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .project-repository:hover {
+      color: var(--ink);
+    }
+
+    .project-repository:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+    }
+
+    .project-toggle {
+      align-self: flex-start;
+      min-height: 40px;
+      padding: 0 16px;
+      border: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--cyan);
+      color: #061315;
+      font: 950 11px/1 inherit;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .project-toggle svg {
+      width: 16px;
+      height: 16px;
+      transition: transform .2s ease;
+    }
+
+    .project-toggle[aria-expanded="true"] svg {
+      transform: rotate(180deg);
+    }
+
+    .project-toggle:hover,
+    .project-toggle:focus-visible {
+      background: #ffffff;
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px;
+    }
+
+    .project-details {
+      padding-top: 2px;
+      border-top: 1px solid var(--line);
+    }
+
+    .project-details[hidden] {
+      display: none;
+    }
+
+    .project-details h4 {
+      margin: 16px 0 4px;
+      font-size: 13px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .project-detail-list {
+      display: grid;
+    }
+
+    .project-detail-row {
+      display: grid;
+      grid-template-columns: 118px minmax(0, 1fr);
+      gap: 16px;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .project-detail-row strong {
+      color: var(--cyan);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .project-detail-row p {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .project-responsibility-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+    }
+
+    .project-responsibility-list li {
+      position: relative;
+      padding: 10px 0 10px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      color: #d5d8d9;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .project-responsibility-list li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-weight: 950;
+    }
+
+    .project-body:has(.project-toggle[aria-expanded="true"]) {
+      justify-content: flex-start;
+    }
+
+.editbar button {
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      background: rgba(255, 255, 255, .08);
+      color: var(--white);
+      cursor: pointer;
+      font: inherit;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+.is-editing [data-edit] {
+      outline: 1px dashed rgba(17, 191, 210, .75);
+      outline-offset: 5px;
+      cursor: text;
+    }
+
+.image-control {
+      position: absolute;
+      left: 22px;
+      top: 22px;
+      z-index: 3;
+      display: none;
+      min-height: 36px;
+      padding: 0 12px;
+      align-items: center;
+      justify-content: center;
+      background: var(--cyan);
+      color: #061315;
+      cursor: pointer;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+.is-editing .image-control {
+      display: inline-flex;
+    }
+
+    .project-media.has-image {
+      background-size: cover;
+      background-position: center;
+    }
+
+    .project-media.has-image::before {
+      background: linear-gradient(135deg, rgba(0, 0, 0, .55), transparent 58%);
+      border: 0;
+      inset: 0;
+    }
+
+    @media (max-width: 1050px) {
+      .hero,
+      .split,
+      .resume-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        min-height: 560px;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .project {
+        grid-template-columns: 1fr;
+      }
+
+      .project-body {
+        border-left: 0;
+        border-top: 7px solid var(--cyan);
+      }
+
+      .project-detail-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .rail,
+      .dots {
+        display: none;
+      }
+
+      .hero,
+      section {
+        margin-left: 0;
+      }
+
+      .hero-copy {
+        min-height: auto;
+        padding: 42px 24px 54px;
+      }
+
+      .hero-copy::before {
+        top: 38px;
+        height: 130px;
+      }
+
+      .hero-visual {
+        min-height: 520px;
+      }
+
+      .abstract-visual {
+        left: 18px;
+        right: 18px;
+        width: auto;
+      }
+
+      .screen-card {
+        left: 18px;
+        right: 18px;
+        width: auto;
+      }
+
+      .mini-grid,
+      .info-bar,
+      .services-grid,
+      .project-list {
+        grid-template-columns: 1fr;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .row a {
+        justify-self: start;
+      }
+
+      .experience-toggle {
+        justify-self: start;
+      }
+
+      .experience-details {
+        grid-column: 1;
+      }
+
+      .resume-stack {
+        gap: 18px;
+      }
+
+      .resume-stack > .resume-grid {
+        padding: 25px 22px;
+        border-left-width: 4px;
+      }
+
+}
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <aside class="rail" aria-hidden="true">
+      <span>Portafolio Alvaro Ponce</span>
+    </aside>
+
+    <nav class="dots" aria-label="Navegacion rapida">
+      <a href="#inicio" aria-label="Inicio"></a>
+      <a href="#sobre-mi" aria-label="Sobre mi"></a>
+      <a href="#experiencia" aria-label="Experiencia"></a>
+      <a href="#servicios" aria-label="Servicios"></a>
+      <a href="#proyectos" aria-label="Proyectos"></a>
+    </nav>
+
+    <header class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow">Infrastructure • Cloud • Data</p>
+        <h1>Hello, I'm Alvaro Ponce</h1>
+        <p class="lead">Ingeniero Civil en Computacion especializado en infraestructura tecnologica, AWS, analisis de datos, Business Intelligence y automatizacion.</p>
+        <div class="actions">
+          <a class="btn" href="#proyectos">Ver proyectos</a>
+          <a class="btn btn--ghost" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Visual editorial cloud data">
+        <div class="abstract-visual" aria-hidden="true">
+          <span class="abstract-node"></span>
+          <span class="abstract-node"></span>
+          <span class="abstract-line"></span>
+        </div>
+        <div class="screen-card">
+          <h2>Live Dashboard</h2>
+          <div class="mini-grid">
+            <div class="mini">
+              <strong>AWS</strong>
+              <span>Cloud</span>
+            </div>
+            <div class="mini">
+              <strong>BI</strong>
+              <span>Data</span>
+            </div>
+            <div class="mini">
+              <strong>7+</strong>
+              <span>Years</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="split" id="sobre-mi">
+      <div class="image-panel" aria-hidden="true">
+        <div class="abstract-visual">
+          <span class="abstract-node"></span>
+          <span class="abstract-node"></span>
+          <span class="abstract-line"></span>
+        </div>
+      </div>
+      <article class="bio-panel">
+        <p class="section-kicker">About me</p>
+        <h2 class="section-title">Infraestructura, cloud y datos en una misma mirada</h2>
+        <p>Ingeniero Civil en Computacion con experiencia en infraestructura tecnologica, virtualizacion, almacenamiento empresarial y analisis de datos.</p>
+        <p>Mi experiencia combina entornos tradicionales de TI con tecnologias cloud modernas, permitiendome comprender el ciclo completo de una solucion tecnologica, desde la infraestructura hasta la explotacion analitica de los datos.</p>
+        <div class="info-bar">
+          <span>Especialidad: AWS, BI, Infraestructura</span>
+          <span>Foco: Arquitecturas escalables</span>
+          <span>Experiencia: 7+ años</span>
+          <span>Actualidad: Cloud y automatizacion</span>
+        </div>
+      </article>
+    </section>
+
+    <section id="experiencia">
+      <div class="resume-stack">
+        <div class="resume-grid">
+          <div class="resume-head">
+            <p class="section-kicker">My resume</p>
+            <h2 style="font-size: 31.35px;">Experiencia</h2>
+            <p>Trayectoria profesional con foco en infraestructura, datos, cloud y gestion comercial.</p>
+          </div>
+
+          <div class="timeline">
+            <article class="row">
+              <time>2018 - 2021</time>
+              <div>
+                <span class="company">VZION CLOUD</span>
+                <h3>Infrastructure Engineer</h3>
+                <p>Virtualizacion empresarial, VMware, Huawei, Storage SAN/NAS, networking, servidores e infraestructura para entornos cloud.</p>
+              </div>
+              <button type="button" class="experience-toggle" aria-expanded="false" aria-controls="experience-1-details">Ver</button>
+              <div class="experience-details" id="experience-1-details" hidden="">
+                <p class="details-title">Funciones y responsabilidades</p>
+                <ul>
+                  <li>Implementacion end-to-end de proyectos de infraestructura TI y plataformas de Cloud privado (IaaS).</li>
+                  <li>Configuracion y administracion de entornos virtualizados mediante VMware y Huawei FusionSphere.</li>
+                  <li>Aprovisionamiento y administracion de maquinas virtuales, almacenamiento SAN/NAS y servidores fisicos.</li>
+                  <li>Soporte y resolucion de incidentes en plataformas de infraestructura y Cloud.</li>
+                  <li>Documentacion tecnica y estandarizacion de procedimientos operativos.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="row">
+              <time>2021 - Actualidad</time>
+              <div>
+                <span class="company">Distrito Miami SPA</span>
+                <h3>Data Analyst &amp; Business Owner</h3>
+                <p>Power BI, KPIs, inventario, marketing basado en datos, automatizacion y gestion comercial.</p>
+              </div>
+              <button type="button" class="experience-toggle" aria-expanded="false" aria-controls="experience-2-details">Ver</button>
+              <div class="experience-details" id="experience-2-details" hidden="">
+                <p class="details-title">Funciones y logros</p>
+                <ul>
+                  <li>Analisis de datos de ventas e inventario utilizando Power BI, SQL y Excel, identificando patrones de consumo y oportunidades de negocio.</li>
+                  <li>Desarrollo de dashboards interactivos para monitoreo de KPIs (ventas, rentabilidad, rotacion de productos).</li>
+                  <li>Optimizacion de decisiones de compra y stock, contribuyendo a reduccion de sobre inventario y mejora en rotacion.</li>
+                  <li>Implementacion de estrategias de marketing digital basadas en datos (Meta Ads).</li>
+                  <li>Automatizacion de procesos operativos mediante herramientas digitales, mejorando la eficiencia y reduciendo tiempos manuales.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="resume-grid">
+          <div class="resume-head">
+            <p class="section-kicker">Education</p>
+            <h2 style="font-size: 31.35px;">FORMACIóN<div>ACADEMICA</div></h2>
+            <p><br></p>
+          </div>
+
+          <div class="timeline">
+            <article class="row">
+              <div class="institution-entry">
+                <div class="institution-logo-wrap">
+                  <img class="institution-logo institution-logo--transparent" src="assets/utem-transparent.png" alt="Logo Universidad Tecnologica Metropolitana">
+                </div>
+                <time>UNIVERSIDAD TECNOLóGICA<br>METROPOLITANA<br>(UTEM)</time>
+              </div>
+              <div>
+                <span class="company">2010 - 2019</span>
+                <h3>INGENIERIA CIVIL EN COMPUTACIÓN MENCIóN INFORMATICA</h3>
+                <p>Infraestructura tecnológica, arquitectura de soluciones, datos y programación.</p>
+              </div>
+              <a href="#servicios">TITULADO</a>
+            </article>
+
+          </div>
+        </div>
+
+        <div class="resume-grid">
+          <div class="resume-head">
+            <p class="section-kicker">Certifications</p>
+            <h2 style="font-size: 28px;">Certificaciones</h2>
+            <p>Credenciales profesionales y certificaciones tecnicas obtenidas.</p>
+          </div>
+
+          <div class="timeline">
+            <article class="row">
+              <div class="institution-entry institution-entry--wide-logo">
+                <div class="institution-logo-wrap">
+                  <img class="institution-logo institution-logo--transparent" src="assets/aws-logo.png" alt="Logo Amazon Web Services">
+                </div>
+                <span>Amazon Web Services</span>
+              </div>
+              <div style="min-width: 0;">
+                <span class="company">2026</span>
+                <h3>AWS Certified Cloud Practitioner</h3>
+                <p>Emisión: 29 de septiembre de 2026 · Vencimiento: 29 de septiembre de 2029.</p>
+                <p style="overflow-wrap: anywhere;">Número de validación: 56b2c6da7aee4c5daaae6072f262e971</p>
+              </div>
+              <a href="https://cp.certmetrics.com/amazon/en/public/verify/credential/56b2c6da7aee4c5daaae6072f262e971" target="_blank" rel="noopener noreferrer" aria-label="Verificar certificación AWS Certified Cloud Practitioner">Verificar</a>
+            </article>
+            <article class="row">
+              <div class="institution-entry institution-entry--wide-logo">
+                <div class="institution-logo-wrap">
+                  <img class="institution-logo institution-logo--transparent" src="assets/aws-logo.png" alt="Logo Amazon Web Services">
+                </div>
+                <span>Amazon Web Services</span>
+              </div>
+              <div style="min-width: 0;">
+                <span class="company">2026</span>
+                <h3>AWS Certified AI Practitioner</h3>
+                <p>Emisión: 27 de agosto de 2026 · Vencimiento: 27 de agosto de 2029.</p>
+                <p style="overflow-wrap: anywhere;">Número de validación: f19c1835f96e4edf827ebdfd1af3b60a</p>
+              </div>
+              <a href="https://cp.certmetrics.com/amazon/en/public/verify/credential/f19c1835f96e4edf827ebdfd1af3b60a" target="_blank" rel="noopener noreferrer" aria-label="Verificar certificación AWS Certified AI Practitioner">Verificar</a>
+            </article>
+            <article class="row">
+              <div class="institution-entry institution-entry--wide-logo">
+                <div class="institution-logo-wrap">
+                  <img class="institution-logo institution-logo--transparent" src="assets/aws-logo.png" alt="Logo Amazon Web Services">
+                </div>
+                <time>Amazon Web Services</time>
+              </div>
+              <div>
+                <span class="company">2026</span>
+                <h3>AWS Certified Solutions Architect – AssociatE</h3>
+                <p>Edita este espacio para agregar la certificacion, especialidad y principales competencias validadas.</p>
+              </div>
+              <a href="#servicios">EN CURSO</a>
+            </article>
+
+          </div>
+        </div>
+
+        <div class="resume-grid">
+          <div class="resume-head">
+            <p class="section-kicker">Courses</p>
+            <h2 style="font-size: 31.35px;">Cursos</h2>
+            <p>Cursos relevantes para cloud, infraestructura, datos y automatizacion.</p>
+          </div>
+
+          <div class="timeline">
+            <article class="row">
+              <div class="institution-entry institution-entry--logo-only">
+                <div class="institution-logo-wrap">
+                  <img class="institution-logo institution-logo--transparent institution-logo--skill-builder" src="assets/aws-skill-builder.png" alt="Logo AWS Skill Builder">
+                </div>
+              </div>
+              <div>
+                <span class="company">2026</span>
+                <h3>AWS Cloud Practitioner Essentials</h3>
+                <p>Fundamentos de la nube, servicios principales, seguridad, precios y soporte de AWS.</p>
+              </div>
+              <a href="#servicios">Ver</a>
+            </article>
+
+            <article class="row">
+              <div class="institution-entry institution-entry--logo-only institution-entry--ips-datax">
+                <div class="institution-logo-wrap">
+                  <img class="institution-logo institution-logo--transparent institution-logo--ips-datax" src="assets/ips-datax-transparent.png" alt="Logo IPS DATAX">
+                </div>
+              </div>
+              <div>
+                <span class="company">2025</span>
+                <h3>Analisis de Datos: Excel - SQL - Python - Power BI</h3>
+                <p>Analisis, procesamiento y visualizacion de datos utilizando Excel, SQL, Python y Power BI.</p>
+              </div>
+              <a href="#servicios">Ver</a>
+            </article>
+
+            <article class="row">
+              <div class="institution-entry institution-entry--logo-only institution-entry--udemy">
+                <div class="institution-logo-wrap">
+                  <img class="institution-logo institution-logo--transparent institution-logo--udemy" src="assets/udemy.png" alt="Logo Udemy">
+                </div>
+              </div>
+              <div>
+                <span class="company">2025</span>
+                <h3>Power BI: Analisis de Datos Profesional</h3>
+                <p>Modelado, transformacion, visualizacion y analisis profesional de datos con Power BI.</p>
+              </div>
+              <a href="#servicios">Ver</a>
+            </article>
+
+            <article class="row">
+              <div class="institution-entry institution-entry--logo-only institution-entry--ips-datax">
+                <div class="institution-logo-wrap">
+                  <img class="institution-logo institution-logo--transparent institution-logo--ips-datax" src="assets/ips-datax-transparent.png" alt="Logo IPS DATAX">
+                </div>
+              </div>
+              <div>
+                <span class="company">2025</span>
+                <h3>Automatizacion con n8n</h3>
+                <p>Diseno de flujos automatizados, integraciones, APIs y procesamiento de datos con n8n.</p>
+              </div>
+              <a href="#servicios">Ver</a>
+            </article>
+          </div>
+        </div>
+
+        <div class="resume-grid">
+          <div class="resume-head">
+            <p class="section-kicker">Currently learning</p>
+            <h2 style="font-size: 20px;">Actualmente&nbsp;<div>aprendiendo</div></h2>
+          </div>
+
+          <div class="timeline">
+            <article class="row">
+              <span>Actualidad</span>
+              <div>
+                <span class="company">Amazon Web Services</span>
+                <h3>AWS Certified Solutions Architect – Associate</h3>
+                <p>Actualmente estudiando para obtener la certificación AWS Certified Solutions Architect – Associate.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="servicios">
+      <div class="resume-grid">
+        <div class="resume-head">
+          <p class="section-kicker">TECHNICAL PROFILE</p>
+          <h2 style="font-size: 31.35px;">tech stack</h2>
+          <p>Mi ecosistema tecnológico que he utilizado en mi carrera.</p>
+        </div>
+      </div>
+
+      <div class="services-grid">
+        <article class="service">
+          <b>01</b>
+          <span class="service-rule" aria-hidden="true"></span>
+          <span class="service-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="cloud" class="lucide lucide-cloud"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg></span>
+          <div class="service-copy">
+            <h3>Cloud</h3>
+            <p>AWS, EC2, S3, CloudFront, Route 53, ACM, IAM</p>
+          </div>
+        </article>
+        <article class="service">
+          <b>02</b>
+          <span class="service-rule" aria-hidden="true"></span>
+          <span class="service-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="database" class="lucide lucide-database"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg></span>
+          <div class="service-copy">
+            <h3>Data</h3>
+            <p>SQL, Python, ETL, Data Lake, Athena</p>
+          </div>
+        </article>
+        <article class="service">
+          <b>03</b>
+          <span class="service-rule" aria-hidden="true"></span>
+          <span class="service-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bar-chart-3" class="lucide lucide-bar-chart-3"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg></span>
+          <div class="service-copy">
+            <h3>BI</h3>
+            <p>Power BI, DAX, Power Query</p>
+          </div>
+        </article>
+        <article class="service">
+          <b>04</b>
+          <span class="service-rule" aria-hidden="true"></span>
+          <span class="service-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="server" class="lucide lucide-server"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect><rect width="20" height="8" x="2" y="14" rx="2" ry="2"></rect><line x1="6" x2="6.01" y1="6" y2="6"></line><line x1="6" x2="6.01" y1="18" y2="18"></line></svg></span>
+          <div class="service-copy">
+            <h3>Infra</h3>
+            <p>VMware, Redes, Storage, Backup, HA</p>
+          </div>
+        </article>
+        <article class="service">
+          <b>05</b>
+          <span class="service-rule" aria-hidden="true"></span>
+          <span class="service-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="code-2" class="lucide lucide-code-2"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg></span>
+          <div class="service-copy">
+            <h3>Automatizacion</h3>
+            <p>n8n, Scripts, APIs, Power Automate</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="projects" id="proyectos">
+      <div class="resume-grid">
+        <div class="resume-head">
+          <p class="section-kicker">Projects</p>
+          <h2 style="font-size: 31.35px;">Proyectos destacados</h2>
+          <p>Aqui queda el valor tecnico convertido en casos visibles.</p>
+        </div>
+      </div>
+
+      <div class="project-list">
+        <article class="project">
+          <div class="project-media" data-label="AWS">
+          </div>
+          <div class="project-body">
+            <p class="section-kicker">Cloud + IaC + DevOps + Data</p>
+            <h3 class="project-title--long">Migración y Modernización Empresarial VMware → AWS</h3>
+            <p>Diseño e implementación End-to-End de la migración de una plataforma e-commerce desde VMware hacia AWS, utilizando <strong>Terraform como Infrastructure as Code</strong>. Implementé una arquitectura <strong>Multi-AZ y altamente disponible</strong> con VPC, subnets públicas/privadas, ALB, EC2 Auto Scaling, Docker/ECR y RDS PostgreSQL. Incorporé <strong>DMS para migración de datos, CloudWatch/SNS para observabilidad, EventBridge + SQS + Lambda para procesamiento event-driven, S3 + Glue + Athena para analítica serverless y CI/CD con GitHub Actions + OIDC</strong>.</p>
+            <div class="project-meta">
+              <span>AWS</span><span>Terraform</span><span>Docker</span><span>PostgreSQL</span><span>Next.js</span><span>GitHub Actions</span><span>EventBridge</span><span>Lambda</span><span>SQS</span><span>S3</span><span>Glue</span><span>Athena</span><span>CloudWatch</span>
+            </div>
+            <div class="project-architecture">Estado: Proyecto finalizado</div>
+            <a class="project-repository" href="https://github.com/Alvar0ne/enterprise-vmware-to-aws-migration" target="_blank" rel="noopener noreferrer" aria-label="Ver Migración y Modernización Empresarial VMware a AWS en GitHub (nueva pestaña)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="github" aria-hidden="true" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg><span>Ver en GitHub</span>
+            </a>
+            <button type="button" class="project-toggle" aria-expanded="false" aria-controls="project-vmware-aws-details">
+              <span>Ver más detalles</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+            </button>
+            <div class="project-details" id="project-vmware-aws-details" hidden="">
+              <h4>Detalles del proyecto</h4>
+              <div class="project-detail-list">
+                <div class="project-detail-row"><strong>Objetivo</strong><p>Migrar y modernizar una plataforma e-commerce desde VMware hacia AWS, con infraestructura definida mediante Terraform.</p></div>
+                <div class="project-detail-row"><strong>Arquitectura</strong><p>Arquitectura Multi-AZ con VPC, subnets públicas y privadas, ALB, EC2 Auto Scaling, contenedores Docker/ECR y RDS PostgreSQL.</p></div>
+                <div class="project-detail-row"><strong>Datos</strong><p>Migración de datos con DMS y analítica serverless mediante S3, Glue y Athena.</p></div>
+                <div class="project-detail-row"><strong>Operación</strong><p>Observabilidad con CloudWatch/SNS, procesamiento event-driven con EventBridge, SQS y Lambda, y CI/CD mediante GitHub Actions con OIDC.</p></div>
+                <div class="project-detail-row"><strong>Resultado</strong><p>Proyecto finalizado: migración y modernización End-to-End de la plataforma e-commerce hacia AWS.</p></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-media" data-label="VDI">
+          </div>
+          <div class="project-body">
+            <p class="section-kicker">Infraestructura empresarial</p>
+            <h3 class="project-title--long">Infraestructura de Escritorios Virtuales Empresariales (VDI) – PDI</h3>
+            <p><strong>Cargo:</strong> Ingeniero de Infraestructura TI · <strong>Empresa:</strong> Vzion Cloud · <strong>Año:</strong> 2018</p>
+            <p>Implementación integral de una solución empresarial de infraestructura de escritorios virtuales (VDI) basada en tecnologías Huawei FusionCloud.</p>
+            <p>Participé en todo el ciclo de vida del proyecto, desde la instalación física del hardware y el despliegue de la infraestructura hasta el aprovisionamiento de escritorios virtuales, la validación en producción y la capacitación de usuarios finales.</p>
+            <div class="project-meta">
+              <span>Huawei FusionCompute</span><span>FusionAccess</span><span>FusionSphere</span><span>OceanStor</span><span>SAN</span><span>iSCSI</span><span>VLAN</span><span>Windows 10</span><span>Active Directory</span><span>VDI</span><span>Alta disponibilidad</span>
+            </div>
+            <button type="button" class="project-toggle" aria-expanded="false" aria-controls="project-pdi-vdi-details">
+              <span>Ver más detalles</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+            </button>
+            <div class="project-details" id="project-pdi-vdi-details" hidden="">
+              <h4>Contribuciones principales</h4>
+              <ul class="project-responsibility-list">
+                <li>Instalación y configuración de 10 servidores empresariales Huawei y almacenamiento SAN OceanStor.</li>
+                <li>Implementación de infraestructura de virtualización Huawei FusionCompute y administración centralizada.</li>
+                <li>Configuración de redes empresariales, segmentación mediante VLAN y conectividad de almacenamiento iSCSI.</li>
+                <li>Despliegue de infraestructura de escritorios virtuales Huawei FusionAccess.</li>
+                <li>Instalación y configuración de plantillas maestras de escritorios virtuales Windows 10 (Golden Images).</li>
+                <li>Diagnóstico y pruebas de compatibilidad de plantillas Windows 10 en español durante el despliegue de escritorios virtuales.</li>
+                <li>Participación en el aprovisionamiento de escritorios virtuales y su integración con servicios de autenticación empresarial.</li>
+                <li>Implementación y validación de componentes de alta disponibilidad.</li>
+                <li>Participación en la puesta en producción, validación técnica y capacitación de usuarios finales.</li>
+              </ul>
+              <h4>Capas de infraestructura</h4>
+              <div class="project-detail-list">
+                <div class="project-detail-row"><strong>Física</strong><p>Servidores empresariales, almacenamiento SAN, switches y redes.</p></div>
+                <div class="project-detail-row"><strong>Virtualización</strong><p>Hipervisores, clústeres, administración centralizada y alta disponibilidad.</p></div>
+                <div class="project-detail-row"><strong>Servicios</strong><p>Plantillas de escritorios Windows, autenticación, aprovisionamiento y capacitación de usuarios finales.</p></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-media" data-label="MOP">
+          </div>
+          <div class="project-body">
+            <p class="section-kicker">Virtual infrastructure</p>
+            <h3 class="project-title--long">Administración de Infraestructura Virtual - Ministerio de Obras Públicas (MOP)</h3>
+            <p>Participé en la administración de la infraestructura virtual del Ministerio de Obras Públicas como consultor de una empresa externa, apoyando la operación diaria del datacenter y la plataforma VMware vSphere, asegurando la continuidad operacional de los servicios críticos.</p>
+            <div class="project-meta">
+              <span>VMware</span>
+              <span>vSphere</span>
+              <span>ESXi</span>
+              <span>SAN</span>
+            </div>
+            <div class="project-architecture">Datacenter → VMware vSphere → Hosts ESXi → Máquinas virtuales + SAN</div>
+            <button type="button" class="project-toggle" aria-expanded="false" aria-controls="project-mop-details">
+              <span>Ver más detalles</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+            </button>
+            <div class="project-details" id="project-mop-details" hidden="">
+              <h4>Responsabilidades</h4>
+              <ul class="project-responsibility-list">
+                <li>Administración de servidores virtuales sobre VMware vSphere.</li>
+                <li>Creación, modificación y eliminación de máquinas virtuales según requerimientos operacionales.</li>
+                <li>Monitoreo permanente del estado de hosts ESXi, máquinas virtuales, almacenamiento y recursos de infraestructura.</li>
+                <li>Gestión de recursos de CPU, memoria, almacenamiento y redes virtuales.</li>
+                <li>Ejecución de reinicios controlados y recuperación de servicios cuando era necesario.</li>
+                <li>Participación en ventanas de mantenimiento programadas.</li>
+                <li>Actualización de versiones de VMware siguiendo procedimientos de continuidad operacional.</li>
+                <li>Elaboración de planes de mantenimiento para minimizar interrupciones del servicio.</li>
+                <li>Coordinación del apagado y encendido ordenado de máquinas virtuales durante actualizaciones de infraestructura.</li>
+                <li>Migración de máquinas virtuales entre servidores físicos.</li>
+                <li>Participación en procesos de renovación y ampliación de infraestructura.</li>
+                <li>Configuración y zonificación (SAN Zoning) de almacenamiento Fibre Channel para integrar nuevos Storage Area Networks.</li>
+                <li>Validación de conectividad entre hosts ESXi y cabinas de almacenamiento.</li>
+                <li>Elaboración de documentación técnica e informes posteriores a mantenimientos y migraciones.</li>
+                <li>Atención de requerimientos internos relacionados con infraestructura virtual.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-media" data-label="AWS">
+          </div>
+          <div class="project-body">
+            <p class="section-kicker">Cloud architecture</p>
+            <h3>AWS Static Website Hosting</h3>
+            <p>Sitio estatico desplegado sobre una arquitectura simple, escalable y de bajo costo usando S3 como origen y CloudFront como capa de distribucion global.</p>
+            <div class="project-meta">
+              <span>AWS</span>
+              <span>S3</span>
+              <span>CloudFront</span>
+              <span>DNS</span>
+            </div>
+            <div class="project-architecture">Internet → CloudFront → S3</div>
+            <a class="project-repository" href="https://github.com/Alvar0ne/aws-static-website-s3-cloudfrot" target="_blank" rel="noopener noreferrer" aria-label="Ver AWS Static Website Hosting en GitHub (nueva pestaña)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="github" aria-hidden="true" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg><span>Ver en GitHub</span>
+            </a>
+            <button type="button" class="project-toggle" aria-expanded="false" aria-controls="project-1-details">
+              <span>Ver más detalles</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+            </button>
+            <div class="project-details" id="project-1-details" hidden="">
+              <h4>Detalles del proyecto</h4>
+              <div class="project-detail-list">
+                <div class="project-detail-row"><strong>Objetivo</strong><p>Publicar un sitio estatico rapido, seguro y de bajo costo mediante servicios administrados de AWS.</p></div>
+                <div class="project-detail-row"><strong>Implementacion</strong><p>Describe aqui la configuracion de S3, CloudFront, DNS, HTTPS, permisos y proceso de despliegue.</p></div>
+                <div class="project-detail-row"><strong>Resultado</strong><p>Agrega aqui resultados, metricas, aprendizajes, enlaces o decisiones tecnicas relevantes.</p></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-media" data-label="EC2">
+          </div>
+          <div class="project-body">
+            <p class="section-kicker">Cloud deployment</p>
+            <h3>OpenClaw on AWS</h3>
+            <p>Implementacion de una aplicacion sobre EC2 con Nginx como reverse proxy, pensada para mostrar despliegue, configuracion base y exposicion segura del servicio.</p>
+            <div class="project-meta">
+              <span>EC2</span>
+              <span>Nginx</span>
+              <span>Linux</span>
+              <span>OpenClaw</span>
+            </div>
+            <div class="project-architecture">Internet → Nginx → EC2 → OpenClaw</div>
+            <button type="button" class="project-toggle" aria-expanded="false" aria-controls="project-2-details">
+              <span>Ver más detalles</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+            </button>
+            <div class="project-details" id="project-2-details" hidden="">
+              <h4>Detalles del proyecto</h4>
+              <div class="project-detail-list">
+                <div class="project-detail-row"><strong>Objetivo</strong><p>Desplegar una aplicacion en AWS con una arquitectura controlada, accesible y preparada para operar sobre Linux.</p></div>
+                <div class="project-detail-row"><strong>Implementacion</strong><p>Describe aqui la instancia EC2, configuracion de Nginx, seguridad, dominio, certificados y despliegue de OpenClaw.</p></div>
+                <div class="project-detail-row"><strong>Resultado</strong><p>Agrega aqui resultados, incidencias resueltas, aprendizajes o mejoras aplicadas al servicio.</p></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-media" data-label="BI">
+          </div>
+          <div class="project-body">
+            <p class="section-kicker">Business intelligence</p>
+            <h3>Dashboard Comercial</h3>
+            <p>Dashboard orientado a decisiones comerciales, con seguimiento de KPIs, ventas, inventario y rentabilidad para convertir datos operativos en lectura ejecutiva.</p>
+            <div class="project-meta">
+              <span>Power BI</span>
+              <span>DAX</span>
+              <span>KPIs</span>
+              <span>Ventas</span>
+            </div>
+            <div class="project-architecture">Datos → Modelo → KPIs → Dashboard</div>
+            <a class="project-repository" href="https://github.com/Alvar0ne/proyecto-analisis-ventas-calidadproductos" target="_blank" rel="noopener noreferrer" aria-label="Ver Dashboard Comercial en GitHub (nueva pestaña)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="github" aria-hidden="true" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg><span>Ver en GitHub</span>
+            </a>
+            <button type="button" class="project-toggle" aria-expanded="false" aria-controls="project-3-details">
+              <span>Ver más detalles</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+            </button>
+            <div class="project-details" id="project-3-details" hidden="">
+              <h4>Detalles del proyecto</h4>
+              <div class="project-detail-list">
+                <div class="project-detail-row"><strong>Objetivo</strong><p>Centralizar indicadores comerciales para facilitar el seguimiento de ventas, inventario y rentabilidad.</p></div>
+                <div class="project-detail-row"><strong>Implementacion</strong><p>Describe aqui las fuentes de datos, limpieza, modelo, medidas DAX, KPIs y estructura del dashboard.</p></div>
+                <div class="project-detail-row"><strong>Resultado</strong><p>Agrega aqui el impacto sobre decisiones comerciales, tiempos de analisis y visibilidad del negocio.</p></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-media" data-label="n8n">
+          </div>
+          <div class="project-body">
+            <p class="section-kicker">Automation</p>
+            <h3>Automatizacion IA + n8n</h3>
+            <p>Flujo end-to-end para transformar documentos en informacion estructurada, combinando extraccion desde PDF, procesamiento con IA y salida hacia JSON o Excel.</p>
+            <div class="project-meta">
+              <span>n8n</span>
+              <span>IA</span>
+              <span>APIs</span>
+              <span>Excel</span>
+            </div>
+            <div class="project-architecture">PDF → IA → JSON → Excel</div>
+            <a class="project-repository" href="https://github.com/Alvar0ne/Pipeline-de-Extraccion-de-Datos-en-Facturas-con-IA-y-n8n" target="_blank" rel="noopener noreferrer" aria-label="Ver Automatización IA y n8n en GitHub (nueva pestaña)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="github" aria-hidden="true" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg><span>Ver en GitHub</span>
+            </a>
+            <button type="button" class="project-toggle" aria-expanded="false" aria-controls="project-4-details">
+              <span>Ver más detalles</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" aria-hidden="true" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+            </button>
+            <div class="project-details" id="project-4-details" hidden="">
+              <h4>Detalles del proyecto</h4>
+              <div class="project-detail-list">
+                <div class="project-detail-row"><strong>Objetivo</strong><p>Automatizar la extraccion y transformacion de informacion contenida en documentos PDF.</p></div>
+                <div class="project-detail-row"><strong>Implementacion</strong><p>Describe aqui el flujo de n8n, integraciones, prompts, validaciones, APIs y generacion de salidas estructuradas.</p></div>
+                <div class="project-detail-row"><strong>Resultado</strong><p>Agrega aqui el ahorro de tiempo, volumen procesado, precision obtenida y mejoras del flujo.</p></div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script>
+
+    document.querySelectorAll(".experience-toggle").forEach((button) => {
+      button.addEventListener("click", () => {
+        const panel = document.getElementById(button.getAttribute("aria-controls"));
+        if (!panel) return;
+        const willOpen = button.getAttribute("aria-expanded") !== "true";
+        button.setAttribute("aria-expanded", String(willOpen));
+        button.textContent = willOpen ? "Cerrar" : "Ver";
+        panel.hidden = !willOpen;
+      });
+    });
+
+    document.querySelectorAll(".project-toggle").forEach((button) => {
+      button.addEventListener("click", () => {
+        const panel = document.getElementById(button.getAttribute("aria-controls"));
+        if (!panel) return;
+        const willOpen = button.getAttribute("aria-expanded") !== "true";
+        button.setAttribute("aria-expanded", String(willOpen));
+        button.querySelector("span").textContent = willOpen ? "Cerrar detalles" : "Ver mas detalles";
+        panel.hidden = !willOpen;
+      });
+    });
+
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+  </script>
+  
+
+
+</body></html>
